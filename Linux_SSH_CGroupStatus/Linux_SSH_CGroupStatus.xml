@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed  version="1.0" hasPendingRequests="false" >
+  <company></company>
+  <status>200</status>
+  <errmsg>OK</errmsg>
+  <interval>0</interval>
+    <entry type="predatasource">
+        <version>1592227304</version>
+        <name>Linux_SSH_CGroupStatus</name>
+        <displayedas>Linux SSH CGroupStatus</displayedas>
+        <description>Linux Control Groups status monitoring via the systemd-cgtop command.</description>
+        <collector>batchscript</collector>
+        <hasMultiInstances>false</hasMultiInstances>
+        <schedule>300</schedule>
+        <appliesTo>hasCategory(&#34;Linux_SSH&#34;) || ssh.user &#38;&#38; ssh.pass &#38;&#38; isLinux()</appliesTo>
+        <wildcardauto>false</wildcardauto>
+        <wildcardpersist>false</wildcardpersist>
+        <wildcardlinuxscript></wildcardlinuxscript>
+        <wildcardlinuxcmdline></wildcardlinuxcmdline>
+        <wildcardwinscript></wildcardwinscript>
+        <wildcardwincmdline></wildcardwincmdline>
+        <wildcardgroovyscript></wildcardgroovyscript>
+        <wildcardschedule>1440</wildcardschedule>
+        <wildcarddisable>false</wildcarddisable>
+        <wildcarddeleteinactive>false</wildcarddeleteinactive>
+        <agdmethod>none</agdmethod>
+        <agdparams></agdparams>
+        <group></group>
+        <tags>linux,control groups,ssh,services,status</tags>
+        <technology>Systemd resource monitoring requires that CPUAccounting be enabled in the  systemd-system.conf configuration file. See documentation for setup instructions.</technology>
+        <adlist><![CDATA[{"agdmethod":"none","agdparams":"","id":0,"filters":[],"params":{}}]]></adlist>
+        <schemaVersion>2</schemaVersion>
+        <dataSourceType>1</dataSourceType>
+        <attributes>
+        <attribute>
+            <name>scripttype</name>
+            <value>embed</value>
+            <comment></comment>
+        </attribute>
+        <attribute>
+            <name>scriptgroovy</name>
+            <value>/*******************************************************************************
+ *  © 2007-2020 - LogicMonitor, Inc. All rights reserved.
+ ******************************************************************************/
+
+import com.jcraft.jsch.JSch
+import com.santaba.agent.util.Settings
+
+// Gather credentials from host -&#62; 
+host = hostProps.get(&#34;system.hostname&#34;)
+user = hostProps.get(&#34;ssh.user&#34;)
+pass = hostProps.get(&#34;ssh.pass&#34;)
+port = hostProps.get(&#34;ssh.port&#34;) ?: 22
+cert = hostProps.get(&#34;ssh.cert&#34;) ?: &#39;~/.ssh/id_rsa&#39;
+timeout = 15000 // timeout in milliseconds
+// &#60;- 
+
+
+def datamap = [:]
+
+def ssh_cmd = &#34;systemd-cgtop -n2 -b --raw\n&#34;;
+def output = getCommandOutput(ssh_cmd).readLines()
+
+output.each {
+        
+	line-&#62;
+    String delims = &#34;[ ]+&#34;;
+    String[] tokens = line.split(delims);
+        
+    if (tokens.size() &#60; 4) {
+        return
+    }
+
+    def instance = tokens[0].replaceAll(/[:|\\|\s|=]+/,&#34;_&#34;)
+
+    def data = tokens[2].replace(&#39;-&#39;,&#34;&#34;)
+
+    if (instance != &#34;/&#34;) {
+        datamap[instance] = data  
+    }
+         
+}
+
+
+def systemdConnectionStatus = 1
+def unitsTotal = datamap.size()
+
+println &#34;unitsTotal=$unitsTotal&#34;
+
+if (unitsTotal &#60; 1) {
+    systemdConnectionStatus = 1
+    return 1
+    println &#34;Failed connection to systemd&#34;
+}
+
+if (unitsTotal &#62; 1) {
+    systemdConnectionStatus = 0
+    return 0
+}
+
+
+def getCommandOutput(String input_command) {
+
+    try {
+        // instantiate JSCH object.
+        jsch = new JSch()
+
+        // do we have an user and no pass ?
+        if (user &#38;&#38; !pass) {
+            // Yes, so lets try connecting via cert.
+            jsch.addIdentity(cert)
+        }
+
+        // create session.
+        session = jsch.getSession(user, host, port)
+
+        // given we are running non-interactively, we will automatically accept new host keys.
+        session.setConfig(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;);
+        String authMethod = Settings.getSetting(Settings.SSH_PREFEREDAUTHENTICATION, Settings.DEFAULT_SSH_PREFEREDAUTHENTICATION);
+        session.setConfig(&#34;PreferredAuthentications&#34;, authMethod);
+
+        // set session timeout, in milliseconds.
+        session.setTimeout(timeout)
+
+        // is host configured with a user &#38; password?
+        if (pass) {
+            // set password.
+            session.setPassword(pass);
+        }
+
+        // connect
+        session.connect()
+
+        // execute command.
+        channel = session.openChannel(&#34;exec&#34;)
+        channel.setCommand(input_command)
+
+        // collect command output.
+        def commandOutput = channel.getInputStream()
+        channel.connect()
+
+        def output = commandOutput.text;
+
+        // disconnect
+        channel.disconnect()
+
+        return output
+    }
+    catch (Exception e) {
+        e.printStackTrace()
+    }
+    // ensure we disconnect the session.
+    finally {
+        session.disconnect()
+    }
+}</value>
+            <comment></comment>
+        </attribute>
+        <attribute>
+            <name>windowsscript</name>
+            <value></value>
+            <comment></comment>
+        </attribute>
+        <attribute>
+            <name>linuxscript</name>
+            <value></value>
+            <comment></comment>
+        </attribute>
+        <attribute>
+            <name>windowscmdline</name>
+            <value></value>
+            <comment></comment>
+        </attribute>
+        <attribute>
+            <name>linuxcmdline</name>
+            <value></value>
+            <comment></comment>
+        </attribute>
+        </attributes>
+        <datapoints>
+        <datapoint>
+            <name>SystemdConnectionStatus</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>namevalue</postprocessormethod>
+            <postprocessorparam>##WILDVALUE##.ConnectionStatus</postprocessorparam>
+            <usevalue>output</usevalue>
+            <alertexpr>!= 0</alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody>Systemd on ##HOST## is not in a connected operating state and is reporting a status code of ##VALUE##, placing the host into ##LEVEL## state.
+
+Status Codes:
+0 = OK,
+1 = Connection failed
+
+This started at ##START## , -- or ##DURATION## ago.</alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Status of connection tosystemd on given host.</description>
+            <maxvalue>1</maxvalue>
+            <minvalue>0</minvalue>
+            <userparam1></userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>unitsTotal</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>namevalue</postprocessormethod>
+            <postprocessorparam>##WILDVALUE##.unitsTotal</postprocessorparam>
+            <usevalue>output</usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Total number of CGroups being monitored</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1></userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        </datapoints>
+        <graphs>
+        <graph>
+            <name>Connection Status</name>
+            <title>Connection Status</title>
+            <verticallabel>0=ok, 1=error</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>2.0</maxvalue>
+            <minvalue>-1.0</minvalue>
+            <displayprio>10</displayprio>
+            <timescale>5hour</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>SystemdConnectionStatus</name>
+            <datapointname>SystemdConnectionStatus</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>2</type>
+                <legend>Connection Status</legend>
+                <color>silver</color>
+                <datapointname>SystemdConnectionStatus</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Total Units Monitored</name>
+            <title>Total Units Monitored</title>
+            <verticallabel>count</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>NaN</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>1</displayprio>
+            <timescale>5hour</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>TotalUnits</name>
+            <datapointname>unitsTotal</datapointname>
+            <cf>1</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>Total Units</legend>
+                <color>silver</color>
+                <datapointname>TotalUnits</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        </graphs>
+        <overviewgraphs>
+        </overviewgraphs>
+        <scripts>
+        </scripts>
+    </entry>
+</feed>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed  version="1.0" hasPendingRequests="false" >
+  <company></company>
+  <status>200</status>
+  <errmsg>OK</errmsg>
+  <interval>0</interval>
+    <entry type="predatasource">
+        <version>1584570359</version>
+        <name>Huawei_Chassis_Fans</name>
+        <displayedas>Huawei Chassis Fans</displayedas>
+        <description>Monitors Huawei device fan speed</description>
+        <collector>snmp</collector>
+        <hasMultiInstances>true</hasMultiInstances>
+        <schedule>180</schedule>
+        <appliesTo>hasCategory(&#34;Huawei&#34;)</appliesTo>
+        <wildcardauto>true</wildcardauto>
+        <wildcardpersist>false</wildcardpersist>
+        <wildcardlinuxscript>ad_snmp</wildcardlinuxscript>
+        <wildcardlinuxcmdline> type=&#34;wildcard&#34; oid=&#34;1.3.6.1.4.1.2011.5.25.31.1.1.10.1.1&#34;  descOid=&#34;&#34; oid2=&#34;&#34;  </wildcardlinuxcmdline>
+        <wildcardwinscript>ad_snmp</wildcardwinscript>
+        <wildcardwincmdline> type=&#34;wildcard&#34; oid=&#34;1.3.6.1.4.1.2011.5.25.31.1.1.10.1.1&#34;  descOid=&#34;&#34; oid2=&#34;&#34;  </wildcardwincmdline>
+        <wildcardgroovyscript></wildcardgroovyscript>
+        <wildcardschedule>60</wildcardschedule>
+        <wildcarddisable>false</wildcarddisable>
+        <wildcarddeleteinactive>false</wildcarddeleteinactive>
+        <agdmethod>none</agdmethod>
+        <agdparams></agdparams>
+        <group></group>
+        <tags>huawei,chassis,fans</tags>
+        <technology>Requires host category &#34;Huawei&#34;</technology>
+        <adlist><![CDATA[{"agdmethod":"none","method":"ad_snmp","agdparams":"","id":0,"filters":[],"params":{"descOid":"","ad_param_externalresourceid":"","oid":"1.3.6.1.4.1.2011.5.25.31.1.1.10.1.1","ILP":"[]","oid2":"","type":"wildcard","ad_param_externalresourcetype":""}}]]></adlist>
+        <schemaVersion>2</schemaVersion>
+        <dataSourceType>1</dataSourceType>
+        <attributes>
+        <attribute>
+            <name>ip</name>
+            <value>dns</value>
+            <comment></comment>
+        </attribute>
+        </attributes>
+        <datapoints>
+        <datapoint>
+            <name>FanSpeed</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <description>Indicates the rotation speed (in percentage of the full speed) of the fan.</description>
+            <maxvalue>100</maxvalue>
+            <minvalue>0</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.10.1.5.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>FanState</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr>!= 1</alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody>Fan ##INSTANCE## on Huawei host ##HOST## is in an abnormal state, placing it into ##LEVEL# state.
+
+This started at ##START##, -- or ##DURATION## ago.</alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <description>This object indicates the running status of a fan.
+
+Status codes: 
+1 = ok
+2 = abnormal</description>
+            <maxvalue>2</maxvalue>
+            <minvalue>1</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.10.1.7.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        </datapoints>
+        <graphs>
+        <graph>
+            <name>Fan Speed</name>
+            <title>Fan Speed</title>
+            <verticallabel>%</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>100.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>1</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>FanSpeed</name>
+            <datapointname>FanSpeed</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>Fan Speed</legend>
+                <color>silver</color>
+                <datapointname>FanSpeed</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Fan State</name>
+            <title>Fan State</title>
+            <verticallabel>1=ok, 2=abnormal</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>3.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>2</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>FanState</name>
+            <datapointname>FanState</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>2</type>
+                <legend>State</legend>
+                <color>silver</color>
+                <datapointname>FanState</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        </graphs>
+        <overviewgraphs>
+        <overviewgraph>
+            <name>Fan State</name>
+            <title>Fan State</title>
+            <verticallabel>1=ok, 2=abnormal</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>3.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>2</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <aggregated>false</aggregated>
+            <datapoints>
+        <overviewgraphdatapoint>
+            <name>FanState</name>
+            <datapointname>FanState</datapointname>
+            <cf>2</cf>
+            <aggregateMethod>max</aggregateMethod>
+        </overviewgraphdatapoint>
+            </datapoints>
+            <virtualdatapoints>
+            </virtualdatapoints>
+            <lines>
+            <overviewgraphline>
+                <type>1</type>
+                <legend>##INSTANCE##</legend>
+                <datapointname>FanState</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+                <color>silver</color>
+            </overviewgraphline>
+            </lines>
+        </overviewgraph>
+        <overviewgraph>
+            <name>Top 10 Instances by Fan Speed</name>
+            <title>Top 10 Instances by Fan Speed</title>
+            <verticallabel>%</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>100.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>1</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <aggregated>false</aggregated>
+            <datapoints>
+        <overviewgraphdatapoint>
+            <name>FanSpeed</name>
+            <datapointname>FanSpeed</datapointname>
+            <cf>1</cf>
+            <aggregateMethod>max</aggregateMethod>
+        </overviewgraphdatapoint>
+            </datapoints>
+            <virtualdatapoints>
+            </virtualdatapoints>
+            <lines>
+            <overviewgraphline>
+                <type>1</type>
+                <legend>##INSTANCE## percent of max fan speed</legend>
+                <datapointname>FanSpeed</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+                <color>silver</color>
+            </overviewgraphline>
+            </lines>
+        </overviewgraph>
+        </overviewgraphs>
+        <scripts>
+        </scripts>
+    </entry>
+</feed>

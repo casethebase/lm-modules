@@ -1,0 +1,321 @@
+{
+    "LMApiVersion": "3",
+    "appliesTo": "hasCategory(\"Linux_SSH\") || ssh.user && ssh.pass && isLinux()",
+    "auditVersion": 0,
+    "autoDiscoveryConfig": {
+        "deleteInactiveInstance": true,
+        "disableInstance": false,
+        "filters": [],
+        "instanceAutoGroupMethod": "none",
+        "instanceAutoGroupMethodParams": "",
+        "method": {
+            "groovyScript": "ad",
+            "linuxCmdline": null,
+            "linuxScript": null,
+            "name": "ad_script",
+            "type": "embeded",
+            "winCmdline": null,
+            "winScript": null
+        },
+        "persistentInstance": false,
+        "scheduleInterval": 15
+    },
+    "checksum": "378911d63655f8e8fe6f7f65b27aee90",
+    "collectInterval": 300,
+    "collectMethod": "batchscript",
+    "collectorAttribute": {
+        "groovyScript": "collect",
+        "linuxCmdline": "",
+        "linuxScript": "",
+        "name": "batchscript",
+        "scriptType": "embed",
+        "windowsCmdline": "",
+        "windowsScript": ""
+    },
+    "coretools_format": "ds meV1",
+    "dataPoints": [
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "CPU resource consumption measured as percentage, across multiple cores",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "CPU",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.cpu",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Memory resource usage measured in bytes",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "MemoryUsage",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.mem",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Total number of tasks assigned to each control group",
+            "enableAnomalyAlertSuppression": "0,0,0",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "TaskCount",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.tasks",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        }
+    ],
+    "description": "Linux Control Groups resource and task usage via the systemd-cgtop command.",
+    "displayName": "Linux SSH CGroups",
+    "enableAutoDiscovery": true,
+    "enableEriDiscovery": false,
+    "eriDiscoveryConfig": null,
+    "eriDiscoveryInterval": -1,
+    "graphs": [
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "CPU",
+                    "name": "CPU"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "CPU",
+                    "isVirtualDataPoint": false,
+                    "legend": "Utilization",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "CGroup CPU Usage %",
+            "rigid": false,
+            "timeScale": "5hour",
+            "title": "CGroup CPU Usage %",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 1,
+                    "dpName": "MemoryUsage",
+                    "name": "MemoryUsage"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "MemoryUsage",
+                    "isVirtualDataPoint": false,
+                    "legend": "bytes",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "CGroup Memory Usage",
+            "rigid": false,
+            "timeScale": "5hour",
+            "title": "CGroup Memory Usage",
+            "verticalLabel": "bytes",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 1,
+                    "dpName": "TaskCount",
+                    "name": "TaskCount"
+                }
+            ],
+            "displayPrio": 2,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "TaskCount",
+                    "isVirtualDataPoint": false,
+                    "legend": "Tasks",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "CGroup Task Count",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "CGroup Task Count",
+            "verticalLabel": "count",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "group": "",
+    "hasMultiInstances": true,
+    "lineageId": "DMP2drA5QEa-jTHZoWl-CQ",
+    "name": "Linux_SSH_CGroups",
+    "overviewgraphs": [
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 1,
+                    "dataPointName": "CPU",
+                    "dpName": "CPU"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "CPU",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Top 10 CGroups by CPU Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top 10 CGroups by CPU Usage",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": true,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 1,
+                    "dataPointName": "MemoryUsage",
+                    "dpName": "MemoryUsage"
+                }
+            ],
+            "displayPrio": 2,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "MemoryUsage",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Top 10 CGroups by Memory Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top 10 CGroups by Memory Usage",
+            "verticalLabel": "bytes",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 1,
+                    "dataPointName": "TaskCount",
+                    "dpName": "TaskCount"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "TaskCount",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Top 10 CGroups by Task Count",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top 10 CGroups by Task Count",
+            "verticalLabel": "count",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "tags": "cgroups,systemd,linux,control groups,ssh",
+    "technology": "Requires manually modifying active discovery script for auto-discovery to take place.\n\nFlag for manually enabling Active Discovery. Change value to 'true' to auto-discover instances. \n\n'def enableAD = false'\n\nRefer to documentation before editing."
+}

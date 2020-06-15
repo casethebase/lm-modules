@@ -1,0 +1,10 @@
+name,description,alertTransitionInterval,alertClearTransitionInterval,type,dataType,maxDigits,postProcessorMethod,postProcessorParam,rawDataFieldName,maxValue,minValue,userParam1,userParam2,userParam3,alertForNoData,alertExpr,alertExprNote,alertSubject,alertBody,enableAnomalyAlertSuppression
+AllocationFailures,"The number of requests for storage represented by this entry that could not be honored due to not enough storage.  It should be noted that as this object has a SYNTAX of Counter, that it does not have a defined initial value.  However, it is recommended that this object be initialized to zero.",0,0,2,7,4,none,,,,0,.1.3.6.1.2.1.25.2.3.1.7.##WILDVALUE##,,,1,,,,,
+Size,"The size of the storage represented by this entry, in units of hrStorageAllocationUnits.",0,0,2,7,4,none,,,,0,.1.3.6.1.2.1.25.2.3.1.5.##WILDVALUE##,,,1,,,,,
+Used,"The amount of the storage represented by this entry that is allocated, in units of hrStorageAllocationUnits.",0,0,2,7,4,none,,,,0,.1.3.6.1.2.1.25.2.3.1.6.##WILDVALUE##,,,1,,,,,
+percentUsed,Percentage of memory currently in use,0,0,2,7,4,expression,(Used/Size)*100,,100,0,,,,1,> 90 timezone=America/Los_Angeles,,,"The host ##HOST## has ##VALUE## percent memory space in use putting the host in a ##LEVEL## level.
+This started at  ##START## and has existed for ##DURATION##
+Check to see which processes are consuming memory. You may need to add more memory, more swap space, or change the number/kind of processes run on this server.",
+totalSize,Total size of memory store measured in bytes,0,0,2,7,4,expression,Size*AllocationUnits,,,0,,,,1,,,,,
+totalUsed,"Total amount of memory in use, measured in bytes",0,0,2,7,4,expression,Used*AllocationUnits,,,0,,,,1,,,,,
+AllocationUnits,"The size, in bytes, of the data objects allocated from this pool.  If this entry is monitoring sectors, blocks, buffers, or packets, for example, this number will commonly be greater than one. Otherwise this number will typically be one.",0,0,2,7,4,none,,,,0,.1.3.6.1.2.1.25.2.3.1.4.##WILDVALUE##,,,1,,,,,

@@ -1,0 +1,397 @@
+{
+    "LMApiVersion": "3",
+    "appliesTo": "hasCategory(\"snmp\") && isWindows()",
+    "auditVersion": 0,
+    "autoDiscoveryConfig": {
+        "deleteInactiveInstance": false,
+        "disableInstance": false,
+        "filters": [
+            {
+                "attribute": ".1.3.6.1.2.1.25.2.3.1.3",
+                "comment": "Storage only",
+                "operation": "NotContain",
+                "value": "Memory"
+            }
+        ],
+        "instanceAutoGroupMethod": "none",
+        "instanceAutoGroupMethodParams": "",
+        "method": {
+            "ILP": [],
+            "OID": ".1.3.6.1.2.1.25.2.3.1.3",
+            "descriptionOID": "",
+            "discoveryType": "value",
+            "enableSNMPILP": false,
+            "externalResourceID": "",
+            "externalResourceType": "",
+            "lookupOID": "",
+            "name": "ad_snmp"
+        },
+        "persistentInstance": false,
+        "scheduleInterval": 1440
+    },
+    "checksum": "9656f4871b67aff52d31cb1013c75d19",
+    "collectInterval": 120,
+    "collectMethod": "snmp",
+    "collectorAttribute": {
+        "ip": "dns",
+        "name": "snmp"
+    },
+    "coretools_format": "ds meV1",
+    "dataPoints": [
+        {
+            "alertBody": "Allocation failures have been detected on ##INSTANCE## for ##HOST##. The amount of failures has surpassed ##THRESHOLD## number of times, for ##DURATION##.\nThe current value is ##VALUE## -- which is above the level ##LEVEL##\nThere may be an error with this drive. \nThis started at ##START##",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "> 5 timezone=America/Los_Angeles",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total number of allocation failures measured by count",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "AllocationFailures",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.7.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total allocation units measured by cluster size",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "AllocationUnits",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.4.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Volume usage measured in percentage of total used.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "100",
+            "minValue": "0",
+            "name": "PercentUsed",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "(Used/Size)*100",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total size of volume in allocation units",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "Size",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.5.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total Size of volume multiplied by allocation units. Indicates number of bytes available for consumption on disk.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "TotalSize",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "Size*AllocationUnits",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total used space multiplied by allocation units. Indicates total number of bytes already consumed on disk.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "TotalUsed",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "Used*AllocationUnits",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total space used in volume measured in allocation units",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "Used",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.6.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        }
+    ],
+    "description": "Collects windows disk usage metrics via snmp such as allocated units, total size, used space, and allocation failures.",
+    "displayName": "Disk Volumes",
+    "enableAutoDiscovery": true,
+    "enableEriDiscovery": false,
+    "eriDiscoveryConfig": null,
+    "eriDiscoveryInterval": -1,
+    "graphs": [
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "AllocationFailures",
+                    "name": "AllocationFailures"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "AllocationFailures",
+                    "isVirtualDataPoint": false,
+                    "legend": "Allocation Failures",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Allocation Failures",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Allocation Failures",
+            "verticalLabel": "count",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "PercentUsed",
+                    "name": "PercentUsed"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "PercentUsed",
+                    "isVirtualDataPoint": false,
+                    "legend": "Percent Used",
+                    "type": 1
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "Percent Used",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Percent Used",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": true,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "TotalSize",
+                    "name": "TotalSize"
+                },
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "TotalUsed",
+                    "name": "TotalUsed"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "lime",
+                    "dataPointName": "TotalFree",
+                    "isVirtualDataPoint": true,
+                    "legend": "TotalFree",
+                    "type": 3
+                },
+                {
+                    "colorName": "red1",
+                    "dataPointName": "TotalSize",
+                    "isVirtualDataPoint": false,
+                    "legend": "TotalSize",
+                    "type": 1
+                },
+                {
+                    "colorName": "silver",
+                    "dataPointName": "TotalUsed",
+                    "isVirtualDataPoint": false,
+                    "legend": "TotalUsed",
+                    "type": 3
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Volume Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Volume Usage",
+            "verticalLabel": "bytes",
+            "virtualDataPoints": [
+                {
+                    "name": "TotalFree",
+                    "rpn": "TotalSize-TotalUsed"
+                }
+            ],
+            "width": 360
+        }
+    ],
+    "group": "",
+    "hasMultiInstances": true,
+    "lineageId": "2SarO1i3SpK7FHQavRb4xg",
+    "name": "Windows_SNMP_Volumes",
+    "overviewgraphs": [
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 1,
+                    "dataPointName": "AllocationFailures",
+                    "dpName": "AllocationFailures"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "AllocationFailures",
+                    "isVirtualDataPoint": false,
+                    "legend": "Allocation Failures for ##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Top 10 Volumes by Allocation Failures",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top 10 Volumes by Allocation Failures",
+            "verticalLabel": "count",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "sum",
+                    "consolidateFunc": 1,
+                    "dataPointName": "PercentUsed",
+                    "dpName": "PercentUsed"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "PercentUsed",
+                    "isVirtualDataPoint": false,
+                    "legend": "Percent Used for ##INSTANCE##",
+                    "type": 2
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "Top 10 Volumes by Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top 10 Volumes by Usage",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "tags": "allocations,volumes,snmp,windows",
+    "technology": ""
+}

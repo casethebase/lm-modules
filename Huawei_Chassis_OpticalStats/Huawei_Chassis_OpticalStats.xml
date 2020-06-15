@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed  version="1.0" hasPendingRequests="false" >
+  <company></company>
+  <status>200</status>
+  <errmsg>OK</errmsg>
+  <interval>0</interval>
+    <entry type="predatasource">
+        <version>1590021321</version>
+        <name>Huawei_Chassis_OpticalStats</name>
+        <displayedas>Huawei Chassis Optical Stats</displayedas>
+        <description>Monitors optical module statistics such as temperature, voltage, signal strength, and admin state.</description>
+        <collector>snmp</collector>
+        <hasMultiInstances>true</hasMultiInstances>
+        <schedule>180</schedule>
+        <appliesTo>hasCategory(&#34;Huawei&#34;)</appliesTo>
+        <wildcardauto>true</wildcardauto>
+        <wildcardpersist>false</wildcardpersist>
+        <wildcardlinuxscript>ad_script</wildcardlinuxscript>
+        <wildcardlinuxcmdline>type=&#34;embeded&#34; </wildcardlinuxcmdline>
+        <wildcardwinscript>ad_script</wildcardwinscript>
+        <wildcardwincmdline>type=&#34;embeded&#34; </wildcardwincmdline>
+        <wildcardgroovyscript>/*******************************************************************************
+ *  © 2007-2020 - LogicMonitor, Inc. All rights reserved.
+ ******************************************************************************/
+
+import com.santaba.agent.groovyapi.snmp.Snmp
+
+// variable to hold system hostname
+def host = hostProps.get(&#39;system.hostname&#39;)
+def props = hostProps.toProperties()
+def timeout = 100000 
+def instanceMap = [:]
+
+
+
+
+Snmp.walkAsMap(host, &#34;1.3.6.1.4.1.2011.5.25.31.1.1.3.1.1&#34;, null, 30000).each { key, mode -&#62;
+    def tx = Snmp.get(host, &#34;1.3.6.1.4.1.2011.5.25.31.1.1.3.1.9.$key&#34;)
+    def vol = Snmp.get(host, &#34;1.3.6.1.4.1.2011.5.25.31.1.1.3.1.6.$key&#34;)
+    mode = mode.trim()
+
+    if (tx != &#34;-1&#34; &#38;&#38; vol != &#34;-1&#34; &#38;&#38; mode != &#34;1&#34;) {
+
+        def serial_no = Snmp.get(host, &#34;1.3.6.1.4.1.2011.5.25.31.1.1.3.1.4.$key&#34;).trim()
+        def name = Snmp.get(host, &#34;1.3.6.1.2.1.47.1.1.1.1.7.$key&#34;).trim()
+        def mfg = Snmp.get(host, &#34;1.3.6.1.2.1.47.1.1.1.1.12.$key&#34;).trim()
+
+
+        // Collect properties
+        def instance_props = [
+            &#39;auto.optical.mode&#39;               : mode,
+            &#39;auto.optical.mfg&#39;                : mfg,
+            &#39;auto.optical.serial&#39;             : serial_no
+        ]
+
+        // Optional properties, not consistent enough to be relied on to return on every host
+        // Instead if we get a value for them we keep them, if not we continue on. 
+        try {
+            def pType = Snmp.get(host, &#34;1.3.6.1.4.1.2011.5.25.31.1.1.1.1.20.$key&#34;).trim().orElse(&#34;&#34;)
+            def type = Snmp.get(host, &#34;1.3.6.1.2.1.47.1.1.1.1.10.$key&#34;).trim().orElse(&#34;&#34;)
+            def fType = Snmp.get(host, &#34;1.3.6.1.4.1.2011.5.25.31.1.1.3.1.12.$key&#34;).trim()orElse(&#34;&#34;)
+
+            if (fType) {
+                instance_props[&#34;auto.optical.fType&#34;] = fType
+            } 
+
+            if (type) {
+                instance_props[&#34;auto.optical.type&#34;] = type
+            }
+
+            if (pType) {
+                instance_props[&#34;auto.optical.pType&#34;] = pType
+            }
+        }
+        catch (Exception e) {
+            // continue on 
+        }
+        // Encode our properties
+        def encoded_instance_props_array = instance_props.collect()
+                { property, value -&#62;
+                    URLEncoder.encode(property.toString()) + &#34;=&#34; + URLEncoder.encode(value.toString())
+                }
+
+        // Write instances with props
+        println &#34;$key##$name##$serial_no####&#34; + encoded_instance_props_array.join(&#34;&#38;&#34;)
+    }
+
+}
+
+return 0
+</wildcardgroovyscript>
+        <wildcardschedule>60</wildcardschedule>
+        <wildcarddisable>false</wildcarddisable>
+        <wildcarddeleteinactive>false</wildcarddeleteinactive>
+        <agdmethod>none</agdmethod>
+        <agdparams></agdparams>
+        <group></group>
+        <tags>huawei,chassis,optical</tags>
+        <technology>User may wish to filter out instances which display negative values for Voltage. A filter can be added: 
+
+1.3.6.1.4.1.2011.5.25.31.1.1.3.1.6.##WILDVALUE## ; GreaterThan ; 0</technology>
+        <adlist><![CDATA[{"agdmethod":"none","method":"ad_script","agdparams":"","id":0,"filters":[],"params":{"type":"embeded","groovyscript":"/*******************************************************************************\n *  © 2007-2020 - LogicMonitor, Inc. All rights reserved.\n ******************************************************************************/\n\nimport com.santaba.agent.groovyapi.snmp.Snmp\n\n// variable to hold system hostname\ndef host = hostProps.get('system.hostname')\ndef props = hostProps.toProperties()\ndef timeout = 100000 \ndef instanceMap = [:]\n\n\n\n\nSnmp.walkAsMap(host, \"1.3.6.1.4.1.2011.5.25.31.1.1.3.1.1\", null, 30000).each { key, mode ->\n    def tx = Snmp.get(host, \"1.3.6.1.4.1.2011.5.25.31.1.1.3.1.9.$key\")\n    def vol = Snmp.get(host, \"1.3.6.1.4.1.2011.5.25.31.1.1.3.1.6.$key\")\n    mode = mode.trim()\n\n    if (tx != \"-1\" && vol != \"-1\" && mode != \"1\") {\n\n        def serial_no = Snmp.get(host, \"1.3.6.1.4.1.2011.5.25.31.1.1.3.1.4.$key\").trim()\n        def name = Snmp.get(host, \"1.3.6.1.2.1.47.1.1.1.1.7.$key\").trim()\n        def mfg = Snmp.get(host, \"1.3.6.1.2.1.47.1.1.1.1.12.$key\").trim()\n\n\n        // Collect properties\n        def instance_props = [\n            'auto.optical.mode'               : mode,\n            'auto.optical.mfg'                : mfg,\n            'auto.optical.serial'             : serial_no\n        ]\n\n        // Optional properties, not consistent enough to be relied on to return on every host\n        // Instead if we get a value for them we keep them, if not we continue on. \n        try {\n            def pType = Snmp.get(host, \"1.3.6.1.4.1.2011.5.25.31.1.1.1.1.20.$key\").trim().orElse(\"\")\n            def type = Snmp.get(host, \"1.3.6.1.2.1.47.1.1.1.1.10.$key\").trim().orElse(\"\")\n            def fType = Snmp.get(host, \"1.3.6.1.4.1.2011.5.25.31.1.1.3.1.12.$key\").trim()orElse(\"\")\n\n            if (fType) {\n                instance_props[\"auto.optical.fType\"] = fType\n            } \n\n            if (type) {\n                instance_props[\"auto.optical.type\"] = type\n            }\n\n            if (pType) {\n                instance_props[\"auto.optical.pType\"] = pType\n            }\n        }\n        catch (Exception e) {\n            // continue on \n        }\n        // Encode our properties\n        def encoded_instance_props_array = instance_props.collect()\n                { property, value ->\n                    URLEncoder.encode(property.toString()) + \"=\" + URLEncoder.encode(value.toString())\n                }\n\n        // Write instances with props\n        println \"$key##$name##$serial_no####\" + encoded_instance_props_array.join(\"&\")\n    }\n\n}\n\nreturn 0\n"}}]]></adlist>
+        <schemaVersion>2</schemaVersion>
+        <dataSourceType>1</dataSourceType>
+        <attributes>
+        <attribute>
+            <name>ip</name>
+            <value>dns</value>
+            <comment></comment>
+        </attribute>
+        </attributes>
+        <datapoints>
+        <datapoint>
+            <name>AdminStatus</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Represents the various possible administrative status codes.
+
+Status Codes:
+	
+1 = notSupported
+2 = locked
+3 = shuttingDown
+4 = unlocked
+11 = up
+12 = down
+13 = loopback</description>
+            <maxvalue>13</maxvalue>
+            <minvalue>1</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.1.1.1.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>BiasCurrent</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>expression</postprocessormethod>
+            <postprocessorparam>BiasCurrentMicroamps/1000</postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Bias Current</description>
+            <maxvalue></maxvalue>
+            <minvalue>0</minvalue>
+            <userparam1></userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>BiasCurrentMicroamps</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>The bias current of the optical module. Unit: microamps.</description>
+            <maxvalue></maxvalue>
+            <minvalue>0</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.3.1.7.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>Mode</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Represents the various possible administrative states.
+
+Status Codes:
+
+1 = notSupported
+2 = singleMode
+3 = multiMode5
+4 = multiMode6
+5 = noValue</description>
+            <maxvalue>5</maxvalue>
+            <minvalue>1</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.3.1.1.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>OperatingState</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody>The operation status of ##HOST## is no longer in an enabled. The current state is ##VALUE##, placing the device into ##LEVEL## state. 
+
+Status codes:
+
+1 = notSupported
+2 = disabled
+3 = enabled
+4 = offline 
+11 = up
+12 = down
+13 = connect
+15 = protocolUp
+16 = linkUp	 
+17 = linkDown
+
+This started at ##START##, -- or ##DURATION## ago.</alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Represents the possible values of operational status codes: 
+
+1 = notSupported
+2 = disabled
+3 = enabled
+4 = offline 
+11 = up
+12 = down
+13 = connect
+15 = protocolUp
+16 = linkUp	 
+17 = linkDown</description>
+            <maxvalue>17</maxvalue>
+            <minvalue>1</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.1.1.2.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>ReceivedPower</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>expression</postprocessormethod>
+            <postprocessorparam>RxPower/100</postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Receive power of the optical module in decibel-milliwatts</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1></userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>RxPower</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>The receive power of the optical module. Unit: dBm.
+
+By default, Huawei expands the value of this OID 100 times, so the real value is stored in ReceivedPower.</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.3.1.8.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>Temperature</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Current Temperature for entity measured in degrees Celsius.</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.3.1.5.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>TransmitPower</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>expression</postprocessormethod>
+            <postprocessorparam>TxPower/100</postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Transmit power of the optical module in decibel-milliwatts</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1></userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>TxPower</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>The receive power of the optical module. Unit: dBm.
+
+By default, Huawei expands the value of this OID 100 times, so the real value is stored in TransmitPower.</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.3.1.9.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>Voltage</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>The current voltage of the optical module. Unit: mV.</description>
+            <maxvalue></maxvalue>
+            <minvalue>0</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.1.1.3.1.6.##WILDVALUE##</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>Volts</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>expression</postprocessormethod>
+            <postprocessorparam>Voltage/1000</postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <adadvsettingenabled>false</adadvsettingenabled>
+            <warnadadvsetting></warnadadvsetting>
+            <erroradadvsetting></erroradadvsetting>
+            <criticaladadvsetting></criticaladadvsetting>
+            <description>Datapoint used for translating millivolts into volts</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1></userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        </datapoints>
+        <graphs>
+        <graph>
+            <name>Admin Status</name>
+            <title>Admin Status</title>
+            <verticallabel>status code</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>5.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>5</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>AdminStatus</name>
+            <datapointname>AdminStatus</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>Admin Status</legend>
+                <color>green</color>
+                <datapointname>AdminStatus</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Bias Current</name>
+            <title>Bias Current</title>
+            <verticallabel>microamps</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>NaN</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>6</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>BiasCurrent</name>
+            <datapointname>BiasCurrent</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>Bias Current</legend>
+                <color>silver</color>
+                <datapointname>BiasCurrent</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Mode</name>
+            <title>Mode</title>
+            <verticallabel>status code</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>6.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>7</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>Mode</name>
+            <datapointname>Mode</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>Mode</legend>
+                <color>silver</color>
+                <datapointname>Mode</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Operating State</name>
+            <title>Operating State</title>
+            <verticallabel>status code</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>5.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>1</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>OperatingState</name>
+            <datapointname>OperatingState</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>2</type>
+                <legend>##INSTANCE##</legend>
+                <color>silver</color>
+                <datapointname>OperatingState</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Temperature</name>
+            <title>Temperature</title>
+            <verticallabel>°C</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>NaN</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>3</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>Temperature</name>
+            <datapointname>Temperature</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>Temperature</legend>
+                <color>blue</color>
+                <datapointname>Temperature</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Trans/Received Milliwatts</name>
+            <title>Trans/Received Milliwatts</title>
+            <verticallabel>dBm</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>15.0</maxvalue>
+            <minvalue>-10.0</minvalue>
+            <displayprio>2</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>ReceivedPower</name>
+            <datapointname>ReceivedPower</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+        <graphdatapoint>
+            <name>TransmitPower</name>
+            <datapointname>TransmitPower</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>Received Power</legend>
+                <color>red2</color>
+                <datapointname>ReceivedPower</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            <graphdata>
+                <type>1</type>
+                <legend>Transmit Power</legend>
+                <color>green</color>
+                <datapointname>TransmitPower</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Voltage</name>
+            <title>Voltage</title>
+            <verticallabel>volts</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>NaN</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>4</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>Voltage</name>
+            <datapointname>Voltage</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>1</type>
+                <legend>##INSTANCE##</legend>
+                <color>silver</color>
+                <datapointname>Voltage</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        </graphs>
+        <overviewgraphs>
+        <overviewgraph>
+            <name>Top Instances by Temperature</name>
+            <title>Top Instances by Temperature</title>
+            <verticallabel>°C</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>NaN</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>2</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <aggregated>false</aggregated>
+            <datapoints>
+        <overviewgraphdatapoint>
+            <name>Temperature</name>
+            <datapointname>Temperature</datapointname>
+            <cf>2</cf>
+            <aggregateMethod>max</aggregateMethod>
+        </overviewgraphdatapoint>
+            </datapoints>
+            <virtualdatapoints>
+            </virtualdatapoints>
+            <lines>
+            <overviewgraphline>
+                <type>1</type>
+                <legend>##INSTANCE##</legend>
+                <datapointname>Temperature</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+                <color>silver</color>
+            </overviewgraphline>
+            </lines>
+        </overviewgraph>
+        <overviewgraph>
+            <name>Top Instances by Transmit &#38; Received Power</name>
+            <title>Top Instances by Transmit &#38; Received Power</title>
+            <verticallabel>dBm</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>15.0</maxvalue>
+            <minvalue>-10.0</minvalue>
+            <displayprio>1</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <aggregated>false</aggregated>
+            <datapoints>
+        <overviewgraphdatapoint>
+            <name>ReceivedPower</name>
+            <datapointname>ReceivedPower</datapointname>
+            <cf>2</cf>
+            <aggregateMethod>max</aggregateMethod>
+        </overviewgraphdatapoint>
+        <overviewgraphdatapoint>
+            <name>TransmitPower</name>
+            <datapointname>TransmitPower</datapointname>
+            <cf>2</cf>
+            <aggregateMethod>max</aggregateMethod>
+        </overviewgraphdatapoint>
+            </datapoints>
+            <virtualdatapoints>
+            </virtualdatapoints>
+            <lines>
+            <overviewgraphline>
+                <type>1</type>
+                <legend>##INSTANCE## dBm</legend>
+                <datapointname>ReceivedPower</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+                <color>silver</color>
+            </overviewgraphline>
+            <overviewgraphline>
+                <type>1</type>
+                <legend>##INSTANCE## dBm</legend>
+                <datapointname>TransmitPower</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+                <color>silver</color>
+            </overviewgraphline>
+            </lines>
+        </overviewgraph>
+        <overviewgraph>
+            <name>Top Instances by Voltage</name>
+            <title>Top Instances by Voltage</title>
+            <verticallabel>volts</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>NaN</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>3</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <aggregated>false</aggregated>
+            <datapoints>
+        <overviewgraphdatapoint>
+            <name>Voltage</name>
+            <datapointname>Volts</datapointname>
+            <cf>2</cf>
+            <aggregateMethod>max</aggregateMethod>
+        </overviewgraphdatapoint>
+            </datapoints>
+            <virtualdatapoints>
+            </virtualdatapoints>
+            <lines>
+            <overviewgraphline>
+                <type>1</type>
+                <legend>##INSTANCE##</legend>
+                <datapointname>Voltage</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+                <color>silver</color>
+            </overviewgraphline>
+            </lines>
+        </overviewgraph>
+        </overviewgraphs>
+        <scripts>
+        </scripts>
+    </entry>
+</feed>

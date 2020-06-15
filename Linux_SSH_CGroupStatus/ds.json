@@ -1,0 +1,150 @@
+{
+    "LMApiVersion": "3",
+    "appliesTo": "hasCategory(\"Linux_SSH\") || ssh.user && ssh.pass && isLinux()",
+    "auditVersion": 0,
+    "autoDiscoveryConfig": null,
+    "checksum": "5b5fdbb7c7eb5e5cbba44ba4f45d31ee",
+    "collectInterval": 300,
+    "collectMethod": "batchscript",
+    "collectorAttribute": {
+        "groovyScript": "collect",
+        "linuxCmdline": "",
+        "linuxScript": "",
+        "name": "batchscript",
+        "scriptType": "embed",
+        "windowsCmdline": "",
+        "windowsScript": ""
+    },
+    "coretools_format": "ds meV1",
+    "dataPoints": [
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "Systemd on ##HOST## is not in a connected operating state and is reporting a status code of ##VALUE##, placing the host into ##LEVEL## state.\n\nStatus Codes:\n0 = OK,\n1 = Connection failed\n\nThis started at ##START## , -- or ##DURATION## ago.",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "!= 0",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Status of connection tosystemd on given host.",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "1",
+            "minValue": "0",
+            "name": "SystemdConnectionStatus",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.ConnectionStatus",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Total number of CGroups being monitored",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "unitsTotal",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.unitsTotal",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        }
+    ],
+    "description": "Linux Control Groups status monitoring via the systemd-cgtop command.",
+    "displayName": "Linux SSH CGroupStatus",
+    "enableAutoDiscovery": false,
+    "enableEriDiscovery": false,
+    "eriDiscoveryConfig": null,
+    "eriDiscoveryInterval": -1,
+    "graphs": [
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "SystemdConnectionStatus",
+                    "name": "SystemdConnectionStatus"
+                }
+            ],
+            "displayPrio": 10,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "SystemdConnectionStatus",
+                    "isVirtualDataPoint": false,
+                    "legend": "Connection Status",
+                    "type": 2
+                }
+            ],
+            "maxValue": 2.0,
+            "minValue": -1.0,
+            "name": "Connection Status",
+            "rigid": false,
+            "timeScale": "5hour",
+            "title": "Connection Status",
+            "verticalLabel": "0=ok, 1=error",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 1,
+                    "dpName": "unitsTotal",
+                    "name": "TotalUnits"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "TotalUnits",
+                    "isVirtualDataPoint": false,
+                    "legend": "Total Units",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Total Units Monitored",
+            "rigid": false,
+            "timeScale": "5hour",
+            "title": "Total Units Monitored",
+            "verticalLabel": "count",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "group": "",
+    "hasMultiInstances": false,
+    "lineageId": "pb9K_nu6TSSn26jvSTJm6A",
+    "name": "Linux_SSH_CGroupStatus",
+    "overviewgraphs": [],
+    "tags": "linux,control groups,ssh,services,status",
+    "technology": "Systemd resource monitoring requires that CPUAccounting be enabled in the  systemd-system.conf configuration file. See documentation for setup instructions."
+}

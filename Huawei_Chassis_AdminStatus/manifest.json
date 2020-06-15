@@ -1,0 +1,9 @@
+{
+    "account": "core",
+    "id": 89908419,
+    "module_type": "ds",
+    "name": "Huawei_Chassis_AdminStatus",
+    "rest_api": "3",
+    "timestamp": 1584570516.639914,
+    "version": 1584570325
+}

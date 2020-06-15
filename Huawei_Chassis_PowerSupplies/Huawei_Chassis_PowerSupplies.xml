@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed  version="1.0" hasPendingRequests="false" >
+  <company></company>
+  <status>200</status>
+  <errmsg>OK</errmsg>
+  <interval>0</interval>
+    <entry type="predatasource">
+        <version>1584570429</version>
+        <name>Huawei_Chassis_PowerSupplies</name>
+        <displayedas>Huawei Chassis Power Supplies</displayedas>
+        <description>Monitors wattage and power usage of Huawei Power Supplies</description>
+        <collector>snmp</collector>
+        <hasMultiInstances>true</hasMultiInstances>
+        <schedule>180</schedule>
+        <appliesTo>hasCategory(&#34;Huawei&#34;)</appliesTo>
+        <wildcardauto>true</wildcardauto>
+        <wildcardpersist>false</wildcardpersist>
+        <wildcardlinuxscript>ad_snmp</wildcardlinuxscript>
+        <wildcardlinuxcmdline> type=&#34;value&#34; oid=&#34;1.3.6.1.2.1.47.1.1.1.1.7&#34;  descOid=&#34;&#34; oid2=&#34;&#34;  </wildcardlinuxcmdline>
+        <wildcardwinscript>ad_snmp</wildcardwinscript>
+        <wildcardwincmdline> type=&#34;value&#34; oid=&#34;1.3.6.1.2.1.47.1.1.1.1.7&#34;  descOid=&#34;&#34; oid2=&#34;&#34;  </wildcardwincmdline>
+        <wildcardgroovyscript></wildcardgroovyscript>
+        <wildcardschedule>1440</wildcardschedule>
+        <wildcarddisable>false</wildcarddisable>
+        <wildcarddeleteinactive>false</wildcarddeleteinactive>
+        <agdmethod>none</agdmethod>
+        <agdparams></agdparams>
+        <group></group>
+        <tags>huawei,chassis,power,power supply</tags>
+        <technology>Requires host category &#34;Huawei&#34;</technology>
+        <adlist><![CDATA[{"agdmethod":"none","method":"ad_snmp","agdparams":"","id":0,"filters":[{"attribute":"1.3.6.1.2.1.47.1.1.1.1.5.##WILDVALUE##","operation":"Equal","value":"6"}],"params":{"descOid":"","ad_param_externalresourceid":"","oid":"1.3.6.1.2.1.47.1.1.1.1.7","ILP":"[]","oid2":"","type":"value","ad_param_externalresourcetype":""}}]]></adlist>
+        <schemaVersion>2</schemaVersion>
+        <dataSourceType>1</dataSourceType>
+        <attributes>
+        <attribute>
+            <name>ip</name>
+            <value>dns</value>
+            <comment></comment>
+        </attribute>
+        <attribute>
+            <name>__filter_0</name>
+            <value>1.3.6.1.2.1.47.1.1.1.1.5.##WILDVALUE##	Equal	6</value>
+            <comment>Only PSU type.</comment>
+        </attribute>
+        </attributes>
+        <datapoints>
+        <datapoint>
+            <name>ActualPowerOutput</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <description>Total amount of power in watts currently consumed by PSU.</description>
+            <maxvalue></maxvalue>
+            <minvalue></minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.3.2.0</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>PercentUsed</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>expression</postprocessormethod>
+            <postprocessorparam>(ActualPowerOutput/TotalPowerOutput)*100</postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr>&#62;= 95</alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody>Power supply ##INSTANCE## on Huawei host ##HOST## is reporting that ##VALUE##% of its power capacity is in use, placing it into ##LEVEL## state.
+
+This started at ##START##, -- or ##DURATION## ago.</alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <description>Current power output measured in percentage of total.</description>
+            <maxvalue></maxvalue>
+            <minvalue>0</minvalue>
+            <userparam1></userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        <datapoint>
+            <name>TotalPowerOutput</name>
+            <dataType>7</dataType>
+            <type>2</type>
+            <postprocessormethod>none</postprocessormethod>
+            <postprocessorparam></postprocessorparam>
+            <usevalue></usevalue>
+            <alertexpr></alertexpr>
+            <alertmissing>1</alertmissing>
+            <alertsubject></alertsubject>
+            <alertbody></alertbody>
+            <enableanomalyalertsuppression></enableanomalyalertsuppression>
+            <description>Total wattage allotment detected for each PSU.</description>
+            <maxvalue></maxvalue>
+            <minvalue>0</minvalue>
+            <userparam1>1.3.6.1.4.1.2011.5.25.31.3.1.0</userparam1>
+            <userparam2></userparam2>
+            <userparam3></userparam3>
+            <iscomposite>false</iscomposite>
+            <rpn></rpn>
+            <alertTransitionIval>0</alertTransitionIval>
+            <alertClearTransitionIval>0</alertClearTransitionIval>
+        </datapoint>
+        </datapoints>
+        <graphs>
+        <graph>
+            <name>Power Usage Percentage</name>
+            <title>Power Usage Percentage</title>
+            <verticallabel>%</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>100.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>1</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>PercentUsed</name>
+            <datapointname>PercentUsed</datapointname>
+            <cf>1</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>2</type>
+                <legend>Percent Used</legend>
+                <color>silver</color>
+                <datapointname>PercentUsed</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        <graph>
+            <name>Wattage Statistics</name>
+            <title>Wattage Statistics</title>
+            <verticallabel>watts</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>NaN</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>2</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <graphdatapoints>
+        <graphdatapoint>
+            <name>UsedPower</name>
+            <datapointname>ActualPowerOutput</datapointname>
+            <cf>2</cf>
+        </graphdatapoint>
+            </graphdatapoints>
+            <graphvirtualdatapoints>
+            </graphvirtualdatapoints>
+            <graphdatas>
+            <graphdata>
+                <type>3</type>
+                <legend>Used Power</legend>
+                <color>aqua</color>
+                <datapointname>UsedPower</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+            </graphdata>
+            </graphdatas>
+        </graph>
+        </graphs>
+        <overviewgraphs>
+        <overviewgraph>
+            <name>Top 10 Instances by Power Usage</name>
+            <title>Top 10 Instances by Power Usage</title>
+            <verticallabel>%</verticallabel>
+            <rigid>false</rigid>
+            <maxvalue>100.0</maxvalue>
+            <minvalue>0.0</minvalue>
+            <displayprio>1</displayprio>
+            <timescale>1day</timescale>
+            <base1024>false</base1024>
+            <aggregated>false</aggregated>
+            <datapoints>
+        <overviewgraphdatapoint>
+            <name>PercentUsed</name>
+            <datapointname>PercentUsed</datapointname>
+            <cf>1</cf>
+            <aggregateMethod>sum</aggregateMethod>
+        </overviewgraphdatapoint>
+            </datapoints>
+            <virtualdatapoints>
+            </virtualdatapoints>
+            <lines>
+            <overviewgraphline>
+                <type>2</type>
+                <legend>##INSTANCE##</legend>
+                <datapointname>PercentUsed</datapointname>
+                <isvirtualdatapoint>false</isvirtualdatapoint>
+                <color>silver</color>
+            </overviewgraphline>
+            </lines>
+        </overviewgraph>
+        </overviewgraphs>
+        <scripts>
+        </scripts>
+    </entry>
+</feed>

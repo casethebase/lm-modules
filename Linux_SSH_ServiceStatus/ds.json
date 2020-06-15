@@ -1,0 +1,321 @@
+{
+    "LMApiVersion": "3",
+    "appliesTo": "hasCategory(\"Linux_SSH\") || ssh.user && ssh.pass && isLinux()",
+    "auditVersion": 0,
+    "autoDiscoveryConfig": {
+        "deleteInactiveInstance": false,
+        "disableInstance": false,
+        "filters": [],
+        "instanceAutoGroupMethod": "none",
+        "instanceAutoGroupMethodParams": "",
+        "method": {
+            "groovyScript": "ad",
+            "linuxCmdline": null,
+            "linuxScript": null,
+            "name": "ad_script",
+            "type": "embeded",
+            "winCmdline": null,
+            "winScript": null
+        },
+        "persistentInstance": true,
+        "scheduleInterval": 15
+    },
+    "checksum": "bee4a8377177702c2e1b49902b5a0317",
+    "collectInterval": 300,
+    "collectMethod": "batchscript",
+    "collectorAttribute": {
+        "groovyScript": "collect",
+        "linuxCmdline": "",
+        "linuxScript": "",
+        "name": "batchscript",
+        "scriptType": "embed",
+        "windowsCmdline": "",
+        "windowsScript": ""
+    },
+    "coretools_format": "ds meV1",
+    "dataPoints": [
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "The high-level unit activation state, i.e. generalization of SUB. Status codes:\n0=ok, \n1=error",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "1",
+            "minValue": "0",
+            "name": "ActivationState",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.active",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Reflects whether the unit definition was properly loaded. Status codes: \n0=ok,\n1=error",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "1",
+            "minValue": "0",
+            "name": "LoadState",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.loadstate",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "The low-level unit activation state.",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "1",
+            "minValue": "0",
+            "name": "SubState",
+            "postProcessorMethod": "namevalue",
+            "postProcessorParam": "##WILDVALUE##.substate",
+            "rawDataFieldName": "output",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        }
+    ],
+    "description": "Linux systemd services via the systemctl command.",
+    "displayName": "Linux SSH ServiceStatus",
+    "enableAutoDiscovery": true,
+    "enableEriDiscovery": false,
+    "eriDiscoveryConfig": null,
+    "eriDiscoveryInterval": -1,
+    "graphs": [
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "ActivationState",
+                    "name": "ActivationState"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "ActivationState",
+                    "isVirtualDataPoint": false,
+                    "legend": "0=ok, 1=error",
+                    "type": 2
+                }
+            ],
+            "maxValue": 2.0,
+            "minValue": -1.0,
+            "name": "Activation State",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Activation State",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "LoadState",
+                    "name": "LoadState"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "LoadState",
+                    "isVirtualDataPoint": false,
+                    "legend": "0=ok, 1=error",
+                    "type": 2
+                }
+            ],
+            "maxValue": 2.0,
+            "minValue": -1.0,
+            "name": "Load State",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Load State",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "SubState",
+                    "name": "SubState"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "SubState",
+                    "isVirtualDataPoint": false,
+                    "legend": "0=ok, 1=error",
+                    "type": 2
+                }
+            ],
+            "maxValue": 2.0,
+            "minValue": -1.0,
+            "name": "Sub State",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Sub State",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "group": "",
+    "hasMultiInstances": true,
+    "lineageId": "AH-U_uNWQge6TCYN1U_ntg",
+    "name": "Linux_SSH_ServiceStatus",
+    "overviewgraphs": [
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 1,
+                    "dataPointName": "ActivationState",
+                    "dpName": "ActivationState"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "ActivationState",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE## 0=ok, 1=error",
+                    "type": 1
+                }
+            ],
+            "maxValue": 2.0,
+            "minValue": -1.0,
+            "name": "Activation State",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Activation State",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "sum",
+                    "consolidateFunc": 1,
+                    "dataPointName": "LoadState",
+                    "dpName": "LoadState"
+                }
+            ],
+            "displayPrio": 2,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "LoadState",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE## 0=ok, 1=error",
+                    "type": 1
+                }
+            ],
+            "maxValue": 2.0,
+            "minValue": -1.0,
+            "name": "Load State",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Load State",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 1,
+                    "dataPointName": "ActivationState",
+                    "dpName": "ActivationState"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "ActivationState",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE## 0=ok, 1=error",
+                    "type": 1
+                }
+            ],
+            "maxValue": 2.0,
+            "minValue": -1.0,
+            "name": "Sub State",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Sub State",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "tags": "service,linux,ssh",
+    "technology": "Requires manually modifying active discovery script for auto-discovery to take place.\n\nFlag for manually enabling Active Discovery. Change value to 'true' to auto-discover instances. \n\n'def enableAD = false'\n\nRefer to documentation before editing."
+}

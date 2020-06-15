@@ -1,0 +1,524 @@
+{
+    "LMApiVersion": "3",
+    "appliesTo": "hasCategory(\"Huawei\")",
+    "auditVersion": 0,
+    "autoDiscoveryConfig": {
+        "deleteInactiveInstance": false,
+        "disableInstance": false,
+        "filters": [
+            {
+                "attribute": "1.3.6.1.2.1.47.1.1.1.1.5.##WILDVALUE##",
+                "comment": "Only MODULE type.",
+                "operation": "Equal",
+                "value": "9"
+            }
+        ],
+        "instanceAutoGroupMethod": "none",
+        "instanceAutoGroupMethodParams": "",
+        "method": {
+            "ILP": [],
+            "OID": "1.3.6.1.2.1.47.1.1.1.1.7",
+            "descriptionOID": "",
+            "discoveryType": "value",
+            "enableSNMPILP": false,
+            "externalResourceID": "",
+            "externalResourceType": "",
+            "lookupOID": "",
+            "name": "ad_snmp"
+        },
+        "persistentInstance": false,
+        "scheduleInterval": 1440
+    },
+    "checksum": "08c16539fc7449140d5fd99fd308e439",
+    "collectInterval": 180,
+    "collectMethod": "snmp",
+    "collectorAttribute": {
+        "ip": "dns",
+        "name": "snmp"
+    },
+    "coretools_format": "ds meV1",
+    "dataPoints": [
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "BytesUsed",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "(MemUsage/100)*MemSize",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "##INSTANCE## on Huawei host ##HOST## is reporting high sustained CPU usage at ##VALUE##%, placing it into ##LEVEL## state.\n\nThis started at ##START##, -- or ##DURATION## ago.",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": ">= 90 95",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 2,
+            "dataType": 7,
+            "description": "Current CPU Usage measured in percentage of total CPU resources.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "100",
+            "minValue": "0",
+            "name": "CpuUsage",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.5.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "The Max CPU usage recorded for this entity measured in percentage of total.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "100",
+            "minValue": "0",
+            "name": "MaxRecordedCpuUsage",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.29.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total memory size for this entity, measured in bytes",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "MemSize",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.9.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "##INSTANCE## on Huawei host ##HOST## is reporting high sustained memory usage at ##VALUE##%, placing it into ##LEVEL## state.\n\nThis started at ##START##, -- or ##DURATION## ago.",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": ">= 90 95",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 2,
+            "dataType": 7,
+            "description": "Current memory usage measured in percentage of total memory size.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "100",
+            "minValue": "0",
+            "name": "MemUsage",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.7.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Current Temperature for entity measured in degrees Celsius.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "100",
+            "minValue": "-100",
+            "name": "Temperature",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.11.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Current uptime for entity, measured in seconds.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "UpTime",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.10.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Current uptime of unit converted to days.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "UptimeDays",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "(UpTime)/86400",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        }
+    ],
+    "description": "Monitors Huawei server chassis system statistics and performance.",
+    "displayName": "Huawei Chassis System Stats",
+    "enableAutoDiscovery": true,
+    "enableEriDiscovery": false,
+    "eriDiscoveryConfig": null,
+    "eriDiscoveryInterval": -1,
+    "graphs": [
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "CpuUsage",
+                    "name": "CpuUsage"
+                },
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "MaxRecordedCpuUsage",
+                    "name": "MaxRecordedCpuUsage"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "CpuUsage",
+                    "isVirtualDataPoint": false,
+                    "legend": "CPU Usage",
+                    "type": 2
+                },
+                {
+                    "colorName": "red1",
+                    "dataPointName": "MaxRecordedCpuUsage",
+                    "isVirtualDataPoint": false,
+                    "legend": "Maximum CPU Usage Recorded",
+                    "type": 1
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "CPU Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "CPU Usage",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "MemUsage",
+                    "name": "MemUsage"
+                }
+            ],
+            "displayPrio": 2,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "aqua",
+                    "dataPointName": "MemUsage",
+                    "isVirtualDataPoint": false,
+                    "legend": "Used Memory",
+                    "type": 2
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "Memory Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Memory Usage",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "Temperature",
+                    "name": "Temperature"
+                }
+            ],
+            "displayPrio": 4,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "red1",
+                    "dataPointName": "Temperature",
+                    "isVirtualDataPoint": false,
+                    "legend": "Temperature",
+                    "type": 1
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": -100.0,
+            "name": "Temperature",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Temperature",
+            "verticalLabel": "\u00b0C",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": true,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "BytesUsed",
+                    "name": "BytesUsed"
+                },
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "MemSize",
+                    "name": "MemSize"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "aqua",
+                    "dataPointName": "BytesUsed",
+                    "isVirtualDataPoint": false,
+                    "legend": "Bytes Used",
+                    "type": 3
+                },
+                {
+                    "colorName": "red2",
+                    "dataPointName": "MemSize",
+                    "isVirtualDataPoint": false,
+                    "legend": "Memory Size",
+                    "type": 1
+                },
+                {
+                    "colorName": "green",
+                    "dataPointName": "Remaining",
+                    "isVirtualDataPoint": true,
+                    "legend": "Bytes Remaining",
+                    "type": 3
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Total Memory",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Total Memory",
+            "verticalLabel": "bytes",
+            "virtualDataPoints": [
+                {
+                    "name": "Remaining",
+                    "rpn": "MemSize-BytesUsed"
+                }
+            ],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "UptimeDays",
+                    "name": "Uptime"
+                }
+            ],
+            "displayPrio": 5,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "Uptime",
+                    "isVirtualDataPoint": false,
+                    "legend": "Uptime",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Uptime",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Uptime",
+            "verticalLabel": "days",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "group": "",
+    "hasMultiInstances": true,
+    "lineageId": "g8vC5QNrSRqC4IzJjvhKtA",
+    "name": "Huawei_Chassis_SystemStats",
+    "overviewgraphs": [
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 2,
+                    "dataPointName": "CpuUsage",
+                    "dpName": "CpuUsage"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "CpuUsage",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE## ",
+                    "type": 1
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "Top Instances by CPU Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top Instances by CPU Usage",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 2,
+                    "dataPointName": "MemUsage",
+                    "dpName": "MemUsage"
+                }
+            ],
+            "displayPrio": 2,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "MemUsage",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "Top Instances by Memory Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top Instances by Memory Usage",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 2,
+                    "dataPointName": "Temperature",
+                    "dpName": "Temperature"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "Temperature",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": -100.0,
+            "name": "Top Instances by Temperature",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top Instances by Temperature",
+            "verticalLabel": "\u00b0C",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "tags": "huawei,bladesystem,chassis",
+    "technology": "- Requires system category \"Huawei\" to be set by PropertySource or manually configured."
+}

@@ -1,0 +1,704 @@
+{
+    "LMApiVersion": "3",
+    "appliesTo": "hasCategory(\"Huawei\")",
+    "auditVersion": 0,
+    "autoDiscoveryConfig": {
+        "deleteInactiveInstance": false,
+        "disableInstance": false,
+        "filters": [],
+        "instanceAutoGroupMethod": "none",
+        "instanceAutoGroupMethodParams": "",
+        "method": {
+            "groovyScript": "ad",
+            "linuxCmdline": null,
+            "linuxScript": null,
+            "name": "ad_script",
+            "type": "embeded",
+            "winCmdline": null,
+            "winScript": null
+        },
+        "persistentInstance": false,
+        "scheduleInterval": 60
+    },
+    "checksum": "d3aa20274996968226ba983a1740af6f",
+    "collectInterval": 180,
+    "collectMethod": "snmp",
+    "collectorAttribute": {
+        "ip": "dns",
+        "name": "snmp"
+    },
+    "coretools_format": "ds meV1",
+    "dataPoints": [
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Represents the various possible administrative status codes.\n\nStatus Codes:\n\t\n1 = notSupported\n2 = locked\n3 = shuttingDown\n4 = unlocked\n11 = up\n12 = down\n13 = loopback",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "13",
+            "minValue": "1",
+            "name": "AdminStatus",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.1.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Bias Current",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "BiasCurrent",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "BiasCurrentMicroamps/1000",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "The bias current of the optical module. Unit: microamps.",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "BiasCurrentMicroamps",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.3.1.7.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Represents the various possible administrative states.\n\nStatus Codes:\n\n1 = notSupported\n2 = singleMode\n3 = multiMode5\n4 = multiMode6\n5 = noValue",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "5",
+            "minValue": "1",
+            "name": "Mode",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.3.1.1.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "The operation status of ##HOST## is no longer in an enabled. The current state is ##VALUE##, placing the device into ##LEVEL## state. \n\nStatus codes:\n\n1 = notSupported\n2 = disabled\n3 = enabled\n4 = offline \n11 = up\n12 = down\n13 = connect\n15 = protocolUp\n16 = linkUp\t \n17 = linkDown\n\nThis started at ##START##, -- or ##DURATION## ago.",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Represents the possible values of operational status codes: \n\n1 = notSupported\n2 = disabled\n3 = enabled\n4 = offline \n11 = up\n12 = down\n13 = connect\n15 = protocolUp\n16 = linkUp\t \n17 = linkDown",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "17",
+            "minValue": "1",
+            "name": "OperatingState",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.1.1.2.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Receive power of the optical module in decibel-milliwatts",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "ReceivedPower",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "RxPower/100",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "The receive power of the optical module. Unit: dBm.\n\nBy default, Huawei expands the value of this OID 100 times, so the real value is stored in ReceivedPower.",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "RxPower",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.3.1.8.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Current Temperature for entity measured in degrees Celsius.",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "Temperature",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.3.1.5.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Transmit power of the optical module in decibel-milliwatts",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "TransmitPower",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "TxPower/100",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "The receive power of the optical module. Unit: dBm.\n\nBy default, Huawei expands the value of this OID 100 times, so the real value is stored in TransmitPower.",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "TxPower",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.3.1.9.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "The current voltage of the optical module. Unit: mV.",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "Voltage",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "1.3.6.1.4.1.2011.5.25.31.1.1.3.1.6.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        },
+        {
+            "adAdvSettingEnabled": false,
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "criticalAdAdvSetting": "",
+            "dataType": 7,
+            "description": "Datapoint used for translating millivolts into volts",
+            "enableAnomalyAlertSuppression": "",
+            "errorAdAdvSetting": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "",
+            "name": "Volts",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "Voltage/1000",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": "",
+            "warnAdAdvSetting": ""
+        }
+    ],
+    "description": "Monitors optical module statistics such as temperature, voltage, signal strength, and admin state.",
+    "displayName": "Huawei Chassis Optical Stats",
+    "enableAutoDiscovery": true,
+    "enableEriDiscovery": false,
+    "eriDiscoveryConfig": null,
+    "eriDiscoveryInterval": -1,
+    "graphs": [
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "AdminStatus",
+                    "name": "AdminStatus"
+                }
+            ],
+            "displayPrio": 5,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "green",
+                    "dataPointName": "AdminStatus",
+                    "isVirtualDataPoint": false,
+                    "legend": "Admin Status",
+                    "type": 1
+                }
+            ],
+            "maxValue": 5.0,
+            "minValue": 0.0,
+            "name": "Admin Status",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Admin Status",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "BiasCurrent",
+                    "name": "BiasCurrent"
+                }
+            ],
+            "displayPrio": 6,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "BiasCurrent",
+                    "isVirtualDataPoint": false,
+                    "legend": "Bias Current",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Bias Current",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Bias Current",
+            "verticalLabel": "microamps",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "Mode",
+                    "name": "Mode"
+                }
+            ],
+            "displayPrio": 7,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "Mode",
+                    "isVirtualDataPoint": false,
+                    "legend": "Mode",
+                    "type": 1
+                }
+            ],
+            "maxValue": 6.0,
+            "minValue": 0.0,
+            "name": "Mode",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Mode",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "OperatingState",
+                    "name": "OperatingState"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "OperatingState",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 2
+                }
+            ],
+            "maxValue": 5.0,
+            "minValue": 0.0,
+            "name": "Operating State",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Operating State",
+            "verticalLabel": "status code",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "Temperature",
+                    "name": "Temperature"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "blue",
+                    "dataPointName": "Temperature",
+                    "isVirtualDataPoint": false,
+                    "legend": "Temperature",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Temperature",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Temperature",
+            "verticalLabel": "\u00b0C",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "ReceivedPower",
+                    "name": "ReceivedPower"
+                },
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "TransmitPower",
+                    "name": "TransmitPower"
+                }
+            ],
+            "displayPrio": 2,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "red2",
+                    "dataPointName": "ReceivedPower",
+                    "isVirtualDataPoint": false,
+                    "legend": "Received Power",
+                    "type": 1
+                },
+                {
+                    "colorName": "green",
+                    "dataPointName": "TransmitPower",
+                    "isVirtualDataPoint": false,
+                    "legend": "Transmit Power",
+                    "type": 1
+                }
+            ],
+            "maxValue": 15.0,
+            "minValue": -10.0,
+            "name": "Trans/Received Milliwatts",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Trans/Received Milliwatts",
+            "verticalLabel": "dBm",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "Voltage",
+                    "name": "Voltage"
+                }
+            ],
+            "displayPrio": 4,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "Voltage",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Voltage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Voltage",
+            "verticalLabel": "volts",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "group": "",
+    "hasMultiInstances": true,
+    "lineageId": "uKPqeqcnTkeBUlK7IcHrvw",
+    "name": "Huawei_Chassis_OpticalStats",
+    "overviewgraphs": [
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 2,
+                    "dataPointName": "Temperature",
+                    "dpName": "Temperature"
+                }
+            ],
+            "displayPrio": 2,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "Temperature",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Top Instances by Temperature",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top Instances by Temperature",
+            "verticalLabel": "\u00b0C",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 2,
+                    "dataPointName": "ReceivedPower",
+                    "dpName": "ReceivedPower"
+                },
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 2,
+                    "dataPointName": "TransmitPower",
+                    "dpName": "TransmitPower"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "ReceivedPower",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE## dBm",
+                    "type": 1
+                },
+                {
+                    "colorName": "silver",
+                    "dataPointName": "TransmitPower",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE## dBm",
+                    "type": 1
+                }
+            ],
+            "maxValue": 15.0,
+            "minValue": -10.0,
+            "name": "Top Instances by Transmit & Received Power",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top Instances by Transmit & Received Power",
+            "verticalLabel": "dBm",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "max",
+                    "consolidateFunc": 2,
+                    "dataPointName": "Voltage",
+                    "dpName": "Volts"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "Voltage",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Top Instances by Voltage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top Instances by Voltage",
+            "verticalLabel": "volts",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "tags": "huawei,chassis,optical",
+    "technology": "User may wish to filter out instances which display negative values for Voltage. A filter can be added: \n\n1.3.6.1.4.1.2011.5.25.31.1.1.3.1.6.##WILDVALUE## ; GreaterThan ; 0"
+}

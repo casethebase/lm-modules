@@ -1,0 +1,365 @@
+{
+    "LMApiVersion": "3",
+    "appliesTo": "hasCategory(\"snmp\") && isWindows()",
+    "auditVersion": 0,
+    "autoDiscoveryConfig": {
+        "deleteInactiveInstance": false,
+        "disableInstance": false,
+        "filters": [
+            {
+                "attribute": ".1.3.6.1.2.1.25.2.3.1.3",
+                "comment": "Memory only",
+                "operation": "Contain",
+                "value": "Memory"
+            }
+        ],
+        "instanceAutoGroupMethod": "none",
+        "instanceAutoGroupMethodParams": "",
+        "method": {
+            "ILP": [],
+            "OID": ".1.3.6.1.2.1.25.2.3.1.3",
+            "descriptionOID": "",
+            "discoveryType": "value",
+            "enableSNMPILP": false,
+            "externalResourceID": "",
+            "externalResourceType": "",
+            "lookupOID": "",
+            "name": "ad_snmp"
+        },
+        "persistentInstance": false,
+        "scheduleInterval": 1440
+    },
+    "checksum": "13ff3649d2560640efa0870de6aa82d1",
+    "collectInterval": 120,
+    "collectMethod": "snmp",
+    "collectorAttribute": {
+        "ip": "dns",
+        "name": "snmp"
+    },
+    "coretools_format": "ds meV1",
+    "dataPoints": [
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "The number of requests for storage represented by this entry that could not be honored due to not enough storage.  It should be noted that as this object has a SYNTAX of Counter, that it does not have a defined initial value.  However, it is recommended that this object be initialized to zero.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "AllocationFailures",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.7.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "The size, in bytes, of the data objects allocated from this pool.  If this entry is monitoring sectors, blocks, buffers, or packets, for example, this number will commonly be greater than one. Otherwise this number will typically be one.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "AllocationUnits",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.4.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "The size of the storage represented by this entry, in units of hrStorageAllocationUnits.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "Size",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.5.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "The amount of the storage represented by this entry that is allocated, in units of hrStorageAllocationUnits.",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "Used",
+            "postProcessorMethod": "none",
+            "postProcessorParam": "",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": ".1.3.6.1.2.1.25.2.3.1.6.##WILDVALUE##",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "The host ##HOST## has ##VALUE## percent memory space in use putting the host in a ##LEVEL## level.\nThis started at  ##START## and has existed for ##DURATION##\nCheck to see which processes are consuming memory. You may need to add more memory, more swap space, or change the number/kind of processes run on this server.",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "> 90 timezone=America/Los_Angeles",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Percentage of memory currently in use",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "100",
+            "minValue": "0",
+            "name": "percentUsed",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "(Used/Size)*100",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total size of memory store measured in bytes",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "totalSize",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "Size*AllocationUnits",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        },
+        {
+            "alertBody": "",
+            "alertClearTransitionInterval": 0,
+            "alertExpr": "",
+            "alertExprNote": "",
+            "alertForNoData": 1,
+            "alertSubject": "",
+            "alertTransitionInterval": 0,
+            "dataType": 7,
+            "description": "Total amount of memory in use, measured in bytes",
+            "enableAnomalyAlertSuppression": "",
+            "maxDigits": 4,
+            "maxValue": "",
+            "minValue": "0",
+            "name": "totalUsed",
+            "postProcessorMethod": "expression",
+            "postProcessorParam": "Used*AllocationUnits",
+            "rawDataFieldName": "",
+            "type": 2,
+            "userParam1": "",
+            "userParam2": "",
+            "userParam3": ""
+        }
+    ],
+    "description": "Monitors Windows memory usage, size, and allocation via SNMP",
+    "displayName": "Memory",
+    "enableAutoDiscovery": true,
+    "enableEriDiscovery": false,
+    "eriDiscoveryConfig": null,
+    "eriDiscoveryInterval": -1,
+    "graphs": [
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "AllocationFailures",
+                    "name": "AllocationFailures"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "AllocationFailures",
+                    "isVirtualDataPoint": false,
+                    "legend": "Allocation Failures",
+                    "type": 1
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Allocation Failures",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Allocation Failures",
+            "verticalLabel": "count",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 2,
+                    "dpName": "percentUsed",
+                    "name": "Percent_Used"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "Percent_Used",
+                    "isVirtualDataPoint": false,
+                    "legend": "Percent_Used",
+                    "type": 2
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "Percent Used",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Percent Used",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        },
+        {
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "consolidateFunc": 1,
+                    "dpName": "totalSize",
+                    "name": "totalSize"
+                },
+                {
+                    "consolidateFunc": 1,
+                    "dpName": "totalUsed",
+                    "name": "totalUsed"
+                }
+            ],
+            "displayPrio": 3,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "lime",
+                    "dataPointName": "totalFree",
+                    "isVirtualDataPoint": true,
+                    "legend": "Total Free",
+                    "type": 3
+                },
+                {
+                    "colorName": "silver",
+                    "dataPointName": "totalSize",
+                    "isVirtualDataPoint": false,
+                    "legend": "Total Size",
+                    "type": 1
+                },
+                {
+                    "colorName": "red1",
+                    "dataPointName": "totalUsed",
+                    "isVirtualDataPoint": false,
+                    "legend": "Total Used",
+                    "type": 3
+                }
+            ],
+            "maxValue": "NaN",
+            "minValue": 0.0,
+            "name": "Total Memory Stats",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Total Memory Stats",
+            "verticalLabel": "bytes",
+            "virtualDataPoints": [
+                {
+                    "name": "totalFree",
+                    "rpn": "totalSize-totalUsed"
+                }
+            ],
+            "width": 360
+        }
+    ],
+    "group": "",
+    "hasMultiInstances": true,
+    "lineageId": "jRrsXL9CQFuupCmZx0wDgQ",
+    "name": "Windows_SNMP_Memory",
+    "overviewgraphs": [
+        {
+            "aggregated": false,
+            "base1024": false,
+            "dataPoints": [
+                {
+                    "aggregateMethod": "sum",
+                    "consolidateFunc": 1,
+                    "dataPointName": "percentUsed",
+                    "dpName": "percentUsed"
+                }
+            ],
+            "displayPrio": 1,
+            "height": 120,
+            "lines": [
+                {
+                    "colorName": "silver",
+                    "dataPointName": "percentUsed",
+                    "isVirtualDataPoint": false,
+                    "legend": "##INSTANCE##",
+                    "type": 1
+                }
+            ],
+            "maxValue": 100.0,
+            "minValue": 0.0,
+            "name": "Top 10 Volumes by Percent Usage",
+            "rigid": false,
+            "timeScale": "1day",
+            "title": "Top 10 Volumes by Percent Usage",
+            "verticalLabel": "%",
+            "virtualDataPoints": [],
+            "width": 360
+        }
+    ],
+    "tags": "snmp,windows,hardware",
+    "technology": ""
+}
